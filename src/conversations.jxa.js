@@ -21,114 +21,114 @@ function run(argv) {
     'iVBORw0KGgoAAAANSUhEUgAAAFQAAABUCAYAAAAcaxDBAAAACXBIWXMAAAsSAAALEgHS3X78AAAFN0lEQVR4nO2c7XEiORCG29T+X28Eex3BeSM4bwTni2DtCM4XweIIjsvAG8HZGeAIFhKwcAYQgbdE9eC2UGskRp8wT5WrYAwz4h2p9arVcPb6+gojfiilfgOAKQB8Y2940ccQ8V4/GQX1QCl1TkL+7Xj1D0S8HgXtQSl1S2J+9Hj5zSiogFLqEgD0MP4c8LaXUVADipNayD8Oef+HlI1rCc842cvk1IWEtzi5GiomnHoPPTBOung5SUGVUhcAMDs0TjpYnZSgFCdnhjGPyfxkYqhSakpxMpWYmvXR91Cl1BX1ylhx0sXiaH1owjjp4tPR9dAMcVJig4jro4qhmeKkxAKOxYdmjpMS+ka2LWihOCnRrqCJ4uTGM0UnMYfWBCUhb+lvyIc3+QEAVwPPsYaWkiNKqWsK/N8ji/kPAFwMPScitjEpUQJjmiBObqhX6hv1+8BzLbsH1QoqbIjFQot5SX8xzr/uHlQnaMI42bGkXqn5N9I5592DqgSlODlN6CeX1CuhszmR2J2rCkETxknOk46ZenmolJpH7v11CJo4TnK2e+Z0zRQLgUX3oEi2KUOc5HAx9az+f+Tz66TIefckew/NECc5N12JDC1T7xNcY8GfZBM0U5zkcDHPScwUo+Hd5JZcUIqTOm79mfpaxIYmnzk7Notg3iXyCMri5PdU17CwNezdMhDe9txTTnr8xqVZy1OcXGUWc2kR8yKieZdY8+NRZ3mKkymHl0Qn5u7D0QhZpXYRiHjGn0cZ8gXiJGdn2I3jDxks2dI8MEjQQnGSs/OYRrtyZfHNm3i4oBQnZxl6gYQk5lWMoi9P5ubLggUtGCc5O49ptC2VeZfYS7B4C1o4TnIkMVOad4lwQWMVokbAZtg5JUbNwjzgFDSwYD8le4bd0s4ilSLmQaugCQpRh7DNsDvEzGHebVjb807QoQX7Cdgz7EZ7z20zbSasGf8PUFec5EiGnZPDvEvYBWV3uaQNMrF6TE5G8y5hHRkTWum0JmZO8y5hHTlnz8/P6wpm8Q6rx+TQJBR7ky0YMynSMWlMzBLm3cZeUqSjhm3kPsPOKb3k7RAnytKCOg07p5B5lxBv/oRK+Uqwl2GXKGjeJcSqkwn5z03mBoWIWdK8S8iCIuKK6n1eMjXmybX6sVDSvEuIHeHdnhIljVP60l6PySHzXtPqDcxKEZN3u57atiCijldfEsTWUDFrMO82nGHKuo2sYxt9+E9UMj00HNwEipk78x6CswzSuS+v4xwizhBRZ6H+AoDHAxrQa9g5FZl3icMF5SDiAyLqYYgA8J+HM9D//xoiJlGLeZdwOo5BhQ6OSczbsBvnu63Mb9r44vpcUSpHKMOvxf3Wl2F3nEPHzZ+DG5MYKSnSEbsUZ2snAjwmf1/yspkILMkFiURdy4cKyajRvNvo/XzFv0lXQeY9hN4lcFFBaVOwRvMu0ftVnNI91NvsV0L1grZGr3MZBfXHWiliMgrqj5evHgX1x+u7oaOg/oyCRsZrG6ZVQZcBWa9YHHUP1cmXFSLq7JReHNy4ig9iQHtvvbQo6B3PZFESvNu6+ZpoW9z7ZrUmqM72TKV/6uoTtnVzF3En1/vXH1oT1GupSr12yrZungZe1zu325Kgd6FJa3jburkcOIk9+L6wFUGdQ92HAZPYY8iNbEXQaFmpwEnsMfTaLfz23UFD3QcqoZzT5uA1/WRbV0s1P+S6tQs6eKj7QFmkWYxz1T7kW0tAVy1osqGektKC3gs2JstQT0FRQWl9rMt7+Ipm+4Wvgs06HAD4BQFSK8wKTcmkAAAAAElFTkSuQmCC';
 
   const PREVIEW_HTML_TEMPLATE = `<!DOCTYPE html>
-  <html lang="en">
-    <head>
-      <script>var chat;</script>
-      <title>Conversation</title>
-      <style>
-        html,
-        body {
-          margin: 0;
-          padding: 0;
-          color: #ffffff;
-          background-color: #1d1d1d;
-        }
-        #conversation {
-          display: flex;
-          padding-left: 0.5rem;
-          padding-right: 0.5rem;
-          flex-direction: column;
-          font-family: sans-serif;
-          font-size: 0.875rem;
-          line-height: 1.25rem;
-          height: 100vh;
-        }
-        #filler {
+    <html lang="en">
+      <head>
+        <script>var chat;</script>
+        <title>Conversation</title>
+        <style>
+          html,
+          body {
+            margin: 0;
+            padding: 0;
+            color: #ffffff;
+            background-color: #1d1d1d;
+          }
+          #conversation {
             display: flex;
-            align-items: center;
-            flex-grow: 1;
-        }
-        .message {
-          padding-top: 0.3rem;
-          padding-bottom: 0.3rem;
-          padding-left: 0.6rem;
-          padding-right: 0.6rem;
-          border-radius: 12px;
-          max-width: 70%;
-          text-align: justify;
-          margin-top: 0.3rem;
-          margin-bottom: 0.3rem;
-        }
-        .received {
-          margin-right: auto;
-          background-color: #3b3a3d;
-          border-bottom-left-radius: 0;
-        }
-        .sent {
-          border-bottom-right-radius: 0;
-          margin-left: auto;
-        }
-        .sms.sent {
-          background-color: #65c465;
-        }
-        .imessage.sent {
-          background-color: #3d83f7;
-        }
-        .hidden {
-            display: none;
-        }
-      </style>
-    </head>
-    <body id="conversation">
-      <div id="filler">
-        <span style="margin-left: auto; margin-right: auto;">
-          Last 14 messages shown. Open Messages app to see more.
-        </span>
-      </div>
-      <div><div style="height: .5rem;"></div></div>
-      <x-conversation />
-      <div><div style="height: .5rem;"></div></div>
-    </body>
-    <script>
-      window.scrollTo(0, document.body.scrollHeight);
-    </script>
-  </html>`;
+            padding-left: 0.5rem;
+            padding-right: 0.5rem;
+            flex-direction: column;
+            font-family: sans-serif;
+            font-size: 0.875rem;
+            line-height: 1.25rem;
+            height: 100vh;
+          }
+          #filler {
+              display: flex;
+              align-items: center;
+              flex-grow: 1;
+          }
+          .message {
+            padding-top: 0.3rem;
+            padding-bottom: 0.3rem;
+            padding-left: 0.6rem;
+            padding-right: 0.6rem;
+            border-radius: 12px;
+            max-width: 70%;
+            text-align: justify;
+            margin-top: 0.3rem;
+            margin-bottom: 0.3rem;
+          }
+          .received {
+            margin-right: auto;
+            background-color: #3b3a3d;
+            border-bottom-left-radius: 0;
+          }
+          .sent {
+            border-bottom-right-radius: 0;
+            margin-left: auto;
+          }
+          .sms.sent {
+            background-color: #65c465;
+          }
+          .imessage.sent {
+            background-color: #3d83f7;
+          }
+          .hidden {
+              display: none;
+          }
+        </style>
+      </head>
+      <body id="conversation">
+        <div id="filler">
+          <span style="margin-left: auto; margin-right: auto;">
+            Last 14 messages shown. Open Messages app to see more.
+          </span>
+        </div>
+        <div><div style="height: .5rem;"></div></div>
+        <x-conversation />
+        <div><div style="height: .5rem;"></div></div>
+      </body>
+      <script>
+        window.scrollTo(0, document.body.scrollHeight);
+      </script>
+    </html>`;
 
   const SQL_QUERY = `\
-  SELECT json_object( \
-    'message_id', message.ROWID,  \
-    'message_body', message.text,  \
-    'sent', message.is_from_me, \
-    'is_attachment', message.cache_has_attachments,  \
-    'chat_id', chat.ROWID,  \
-    'chat_guid', chat.guid \
-  ) AS json \
-  FROM ( \
-    SELECT message_id, chat_id, ROW_NUMBER() \
-      OVER ( \
-        PARTITION BY chat_id \
-          ORDER BY message_id DESC \
-      ) AS row_num \
-      FROM chat_message_join \
-        WHERE chat_id IN ( \
-          SELECT chat_id \
-            FROM chat_message_join \
-              WHERE message_id IN ( \
-                SELECT MAX(message_id) \
-                  FROM chat_message_join \
-                  GROUP BY chat_id \
-                  ORDER BY message_id DESC \
-                  LIMIT 14 \
-              ) \
-        ) \
-  ) chat_message_join \
-  JOIN message ON chat_message_join.message_id = message.ROWID \
-  JOIN chat ON chat_message_join.chat_id = chat.ROWID \
-    WHERE row_num < 11
-    ORDER BY message_id DESC;`;
+    SELECT json_object( \
+      'message_id', message.ROWID,  \
+      'message_body', message.text,  \
+      'sent', message.is_from_me, \
+      'is_attachment', message.cache_has_attachments,  \
+      'chat_id', chat.ROWID,  \
+      'chat_guid', chat.guid \
+    ) AS json \
+    FROM ( \
+      SELECT message_id, chat_id, ROW_NUMBER() \
+        OVER ( \
+          PARTITION BY chat_id \
+            ORDER BY message_id DESC \
+        ) AS row_num \
+        FROM chat_message_join \
+          WHERE chat_id IN ( \
+            SELECT chat_id \
+              FROM chat_message_join \
+                WHERE message_id IN ( \
+                  SELECT MAX(message_id) \
+                    FROM chat_message_join \
+                    GROUP BY chat_id \
+                    ORDER BY message_id DESC \
+                    LIMIT 14 \
+                ) \
+          ) \
+    ) chat_message_join \
+    JOIN message ON chat_message_join.message_id = message.ROWID \
+    JOIN chat ON chat_message_join.chat_id = chat.ROWID \
+      WHERE row_num < 11
+      ORDER BY message_id DESC;`;
 
   const SQLITE_COMMAND = `sqlite3 -newline ","\
-  ~/Library/Messages/chat.db "${SQL_QUERY}"`;
+    ~/Library/Messages/chat.db "${SQL_QUERY}"`;
 
   const Util = {
     shellEncode: (data) => {
@@ -147,8 +147,8 @@ function run(argv) {
     readCache: (key) => {
       try {
         const data = App.doShellScript(`\
-            curl --location \
-            --request GET 'file://${CACHE_DIR}/${key}.${CACHE_EXTEN}'`);
+              curl --location \
+              --request GET 'file://${CACHE_DIR}/${key}.${CACHE_EXTEN}'`);
         return Util.shellDecode(data);
       } catch (ex) {
         return '';
@@ -158,9 +158,9 @@ function run(argv) {
     writeCache: (key, value) => {
       App.doShellScript(
         `mkdir -p "${CACHE_DIR}"; \
-          printf "${Util.shellEncode(
-            value,
-          )}" > "${CACHE_DIR}/${key}.${CACHE_EXTEN}";`,
+            printf "${Util.shellEncode(
+              value,
+            )}" > "${CACHE_DIR}/${key}.${CACHE_EXTEN}";`,
       );
       return value;
     },
@@ -199,6 +199,7 @@ function run(argv) {
   if (!Alfred.var('workflow_installed') && CWD !== '/tmp') {
     App.doShellScript(`mkdir -p "${CWD}"`);
 
+    // install icons
     [
       ['received', ICON_RECEIVED],
       ['sent-imessage', ICON_SENT_IMESSAGE],
@@ -206,7 +207,7 @@ function run(argv) {
       ['send', ICON_SEND_MESSAGE],
     ].forEach(([filename, data]) =>
       App.doShellScript(`printf "${data}" | base64 --decode\\
-      > "${CWD}/${filename}.png"`),
+        > "${CWD}/${filename}.png"`),
     );
 
     Alfred.setEnv('alfred_workflow_installed', 1);
@@ -276,7 +277,7 @@ function run(argv) {
           );
 
       App.doShellScript(
-        `echo "${PREVIEW_HTML_TEMPLATE.replace(
+        `mkdir -p "${CACHE_DIR}"; echo "${PREVIEW_HTML_TEMPLATE.replace(
           '<x-conversation />',
           conversationHtml,
         )
@@ -295,8 +296,8 @@ function run(argv) {
           .map(
             ({ chat_id: id, chat_title }) =>
               `sed 's/${id} hidden//g' \\
-                            "${CACHE_DIR}/chat-preview.html" > \\
-                            "${CACHE_DIR}/${chat_title}.html"`,
+                              "${CACHE_DIR}/chat-preview.html" > \\
+                              "${CACHE_DIR}/${chat_title}.html"`,
           )
           .join(';'),
       );
@@ -307,27 +308,34 @@ function run(argv) {
     pick_conversation: () => {
       let messages = Messages.getMessages();
       const MessagesApp = Application('Messages');
-      const chats = [
-        ...new Set(messages.map((message) => message.chat_id)),
-      ].map((chatId) => {
-        const msg = messages.find(({ chat_id }) => chat_id === chatId);
-        const { chat_guid } = msg;
+      const chats = [...new Set(messages.map((message) => message.chat_id))]
+        .map((chatId) => {
+          const msg = messages.find(({ chat_id }) => chat_id === chatId);
+          const { chat_guid } = msg;
 
-        const osaChat = MessagesApp.chats.byId(msg.chat_guid);
+          const osaChat = MessagesApp.chats.byId(msg.chat_guid);
 
-        const isGroup = chat_guid.includes(';chat');
-        const buddies =
-          osaChat.participants[`${isGroup ? 'first' : 'full'}Name`]();
-        const chat_title = `${isGroup ? 'Group c' : 'C'}hat with ${
-          isGroup
-            ? `${buddies.reverse().slice(1).join(', ')} and ${
-                buddies.reverse().slice(-1)[0]
-              }`
-            : buddies
-        }`;
+          // verify valid chat guid
+          try {
+            osaChat.properties();
+          } catch (ex) {
+            return {};
+          }
 
-        return Object.assign(msg, { chat_title });
-      });
+          const isGroup = chat_guid.includes(';chat');
+          const buddies =
+            osaChat.participants[`${isGroup ? 'first' : 'full'}Name`]();
+          const chat_title = `${isGroup ? 'Group c' : 'C'}hat with ${
+            isGroup
+              ? `${buddies.reverse().slice(1).join(', ')} and ${
+                  buddies.reverse().slice(-1)[0]
+                }`
+              : buddies
+          }`;
+
+          return Object.assign(msg, { chat_title });
+        })
+        .filter(({ chat_title }) => !!chat_title);
 
       const items = chats.map((chat) => {
         const {
