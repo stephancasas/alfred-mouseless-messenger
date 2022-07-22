@@ -258,7 +258,7 @@ function run(argv) {
             } message ${chat_platform} ${chat_id} hidden">${
               is_attachment
                 ? '<i>Media Attachment</i>'
-                : message_body.replace(/\\n/g, '<br>')
+                : (message_body ?? '').replace(/\\n/g, '<br>')
             }</div>`,
           '',
         );
