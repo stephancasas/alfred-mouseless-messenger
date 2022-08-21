@@ -30,8 +30,8 @@ function run(argv) {
           body {
             margin: 0;
             padding: 0;
-            color: #ffffff;
-            background-color: #1d1d1d;
+            color: #bbbbb;
+            background-color: #ffffff;
           }
           #conversation {
             display: flex;
@@ -61,7 +61,7 @@ function run(argv) {
           }
           .received {
             margin-right: auto;
-            background-color: #3b3a3d;
+            background-color: #E9E9EB;
             border-bottom-left-radius: 0;
           }
           .sent {
@@ -70,9 +70,11 @@ function run(argv) {
           }
           .sms.sent {
             background-color: #65c465;
+            color: #ffffff;
           }
           .imessage.sent {
             background-color: #3d83f7;
+            color: #ffffff;
           }
           .hidden {
               display: none;
