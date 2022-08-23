@@ -8,6 +8,38 @@ function run(argv) {
   const CACHE_DIR = App.systemAttribute('alfred_workflow_cache') || '/tmp';
   const CACHE_EXTEN = 'encoded.txt';
 
+  let COLOR_SCHEME_PREF = App.systemAttribute('alfred_prefers_color_scheme');
+  COLOR_SCHEME_PREF = !COLOR_SCHEME_PREF.match(/(dark|light)/i)
+    ? App.doShellScript(`defaults read -g AppleInterfaceStyle`).match(/dark/gi)
+      ? 'dark'
+      : 'light'
+    : COLOR_SCHEME_PREF.toLowerCase().trim();
+
+  const COLOR_SCHEME = {
+    light: {
+      body: { text: '#242424', bg: '#FFFFFF' },
+      received: {
+        bg: '#E9E9EB',
+      },
+      sms: {
+        bg: '#34C759',
+      },
+      imessage: {
+        bg: '#057DFE',
+      },
+    },
+    dark: {
+      body: { text: '#FFFFFF', bg: '#1E1E1E' },
+      received: { bg: '#3B3A3D' },
+      sms: {
+        bg: '#34C759',
+      },
+      imessage: {
+        bg: '#0C84FF',
+      },
+    },
+  }[COLOR_SCHEME_PREF];
+
   const ICON_RECEIVED =
     'iVBORw0KGgoAAAANSUhEUgAAAFQAAABKCAYAAAAlt3MqAAAACXBIWXMAAAsSAAALEgHS3X78AAAD5ElEQVR4nO2c63HaQBCA1xr+41RgtoLQgdVBnAqMK4g7iNMBrsC4gkAFxh1AAyyqIKgCZ06zwmeht1ZI6PabYYw9PKTPq7vT3t1efXx8QJcQ0TUATPlxbf0Efj5OHF4IABvr9zUAHPhvG0Q8dHk+ZxdKRBMAuAMAn4XdCH9FyJKjByJuSrxHjLMIJSIjbsYipQUWEbDcJSIu2/6y1oRyJM74cW6JWRi5RuocEfdtfIG4UBb5BAD3oh8sz4rFriU/WUzoBYlM8m6OW0psY6HcSxuRvyQOqENeAeCx6SihkVAiMp3MImVoc6mEHK3zswrlqDQifwxEZBLTDNzVidbKQnkItOxRz90WIUut1LZ6VV5MRDMe0w1dJnAz9sbnXJrSQvmDXwbUXpblhYhKt6mlLnkiWlzgcEiaV0QsjNbCCCWiSxxbtsE9B1YuuRFqXebKJw+ImCk2UygRmWzQm4pM5WdWoiVVKI8z9w52QGUxQ6ppWoIlqw1dqsxcxnxjc8KJUCJ6BIDb3hx6f7llV1/4csnrpV4Zc+lP7FvUZITOVWYlxuzsyDFCOZ9Jl3AWPQTjDsqO0CfXrTTg6C6KUG07G3NsS+MIvVOZjRizQ7CFKs2IHF7tdjtzuf9TmSJ883gFhyKD7/FyGEWGqUaoLFGEToZ0Rh0z8RyZcDsXN5VmPZViVKgwKlQYFSqMChVGhQpjhG4HdUbdsvU4D6rIsPcSe36UZmw8Xp6oyLCOp0AOmrFvTIiI13Ev3/qGKAeIHKpQOSKH9rz8XjNPtQkQMUqD2gP72ltJlM+FY7bQBc8vK9UI7WA8CuUFT7p6pDpze7HYyYJbbUsrcWw7Y9KSI5X25TjOiasTobxz7Nl1UyV4Tttll7dpwdzjf+/+uHuJydD5aXtB8/Khvvb6qRgns6yNtZlC+Q0q9RQ/rzBMbsae36hSP3koqrJTdq+nZqMKdtDFjIpewFUbXJYZt5mlEkiFQh1fjBtwEYLSsxpFm2ddXntfq0xGUYQ+OirzDyLWymvkDexdjM53LjVUe+IyL0Jdis6AywsV9uJFuL69O85lzqXKZGZF6NPAZQZ8jkvpeqNp+VDpSg4rvtvqwz/IlGNbSBcQtEnb3r0RSjB/KSTFNwj+mWuIhjwbuW4jGtNICp0LFQVc5WVkeOezb5UKlip4sI1LB3dR3RYS08gmcv42/LyARVa+pFjyJFGDeZKyS2VvLXCLay8fupCXRrwUZ8qXRd12LuSe0vlJvpFVabGOzIDfKzbsuHRGLKTqVMc795aNB8JDFFpma6JdynzZVkHoITDiO4XffC6B1eCv+fmmLw1+7wGA/05Pl5pD/n4/AAAAAElFTkSuQmCC';
 
@@ -30,8 +62,8 @@ function run(argv) {
           body {
             margin: 0;
             padding: 0;
-            color: #ffffff;
-            background-color: #1d1d1d;
+            color: ${COLOR_SCHEME.body.text};
+            background-color: ${COLOR_SCHEME.body.bg};
           }
           #conversation {
             display: flex;
@@ -61,18 +93,19 @@ function run(argv) {
           }
           .received {
             margin-right: auto;
-            background-color: #3b3a3d;
+            background-color: ${COLOR_SCHEME.received.bg};
             border-bottom-left-radius: 0;
           }
           .sent {
             border-bottom-right-radius: 0;
             margin-left: auto;
+            color: #FFFFFF;
           }
           .sms.sent {
-            background-color: #65c465;
+            background-color: ${COLOR_SCHEME.sms.bg};
           }
           .imessage.sent {
-            background-color: #3d83f7;
+            background-color: ${COLOR_SCHEME.imessage.bg};
           }
           .hidden {
               display: none;
