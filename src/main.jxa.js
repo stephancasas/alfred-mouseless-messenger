@@ -637,9 +637,9 @@ function run(_) {
   );
 
   const lastMessage = getMessages()[0].message_id;
-  const lastPrefsUpdate = App.doShellScript(
-    `date -r "${INSTALL_DIR}/prefs.plist" +%s`,
-  );
+  const lastPrefsUpdate = $pathType(`${INSTALL_DIR}/prefs.plist`)
+    ? App.doShellScript(`date -r "${INSTALL_DIR}/prefs.plist" +%s`)
+    : 0;
 
   if (
     $read('last_message') != $write('last_message', lastMessage) ||
