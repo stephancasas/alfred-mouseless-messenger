@@ -227,6 +227,10 @@ function resolveColorScheme(scheme = '') {
 }
 
 function unserializeMessageBody(mBody) {
+  if (!mBody.length) {
+    return 'Message un-sent by chat participant.';
+  }
+
   const bytes = [];
   for (let c = 0; c < mBody.length; c += 2)
     bytes.push(parseInt(mBody.substr(c, 2), 16));
