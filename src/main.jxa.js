@@ -263,8 +263,10 @@ function convertMessageTimestamp(timestamp, string = false) {
 }
 
 function getMessageHistoryOption() {
-  const HISTORY = App.systemAttribute('alfred_mm_message_history');
-  return parseInt(HISTORY);
+  let history = App.systemAttribute('alfred_mm_message_history');
+  history = parseInt(history);
+
+  return isNaN(history) ? 14 : history;
 }
 
 function getMessages() {
