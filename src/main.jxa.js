@@ -595,7 +595,7 @@ function run(_) {
         subtitle,
         valid: true,
         icon: {
-          path: `${INSTALL_DIR}/${icon}.png`,
+          path: `${icon}.png`,
         },
         match: chat_title,
         arg: '',
