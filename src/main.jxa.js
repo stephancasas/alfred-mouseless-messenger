@@ -123,71 +123,6 @@ const GH_BASE_URL = 'https://github.com';
 const GH_CONTENT_BASE_URL = 'https://raw.githubusercontent.com';
 const REPOSITORY = 'stephancasas/alfred-mouseless-messenger';
 
-function checkForUpdate() {
-  if (
-    new Date().getTime() <
-    parseInt(App.systemAttribute('alfred_mm_next_update'))
-  ) {
-    return;
-  }
-
-  // set next update poll
-  const prefs = App.systemAttribute('alfred_preferences');
-  const workflowUid = App.systemAttribute('alfred_workflow_uid');
-  const workflowDir = `${prefs}/workflows/${workflowUid}`;
-  Application('System Events')
-    .propertyListFiles.byName(`${workflowDir}/info.plist`)
-    .propertyListItems.byName('variables')
-    .propertyListItems.byName('alfred_mm_next_update')
-    .value.set(`${new Date().getTime() + 259200 * 1000}`);
-
-  console.log('Mouseless Messenger will check for updates...');
-
-  const cmd = [
-    `curl`,
-    `-Ls`,
-    `-o /dev/null`,
-    `-w %{url_effective}`,
-    `${GH_BASE_URL}/${REPOSITORY}/releases/latest`,
-  ].join(' ');
-
-  const newUpdateToken = App.doShellScript(cmd);
-
-  if ($read('update_token') == $write('update_token', newUpdateToken)) {
-    console.log('Mouseless Messenger is up-to-date.');
-    return;
-  }
-
-  console.log('Mouseless Messenger found an update.');
-
-  applyUpdate();
-}
-
-function applyUpdate() {
-  const cmd = [
-    `curl`,
-    `${GH_CONTENT_BASE_URL}/${REPOSITORY}/main/updater.jxa.js`,
-  ].join(' ');
-
-  console.log('Mouseless Messenger will download the updater...');
-
-  // use correct carriage-return/line-feed chars
-  const updater = App.doShellScript(cmd).replace(/\r/g, '\n');
-
-  if (updater.split(/\n/)[0] != `#!/usr/bin/env osascript -l JavaScript`) {
-    console.log('Something is wrong with the updater.');
-    return;
-  }
-
-  $write('updater.jxa.js', updater);
-  App.doShellScript(`chmod +x '${CACHE_DIR}/updater.jxa.js'`);
-
-  console.log('Mouseless Messenger downloaded the updater.');
-  console.log('Mouseless Messenger will attempt to apply updates.');
-
-  App.doShellScript(`${`${CACHE_DIR}/updater.jxa.js`.replace(/\s/g, '\\ ')} &`);
-}
-
 const CACHE = {};
 
 function resolveColorScheme(scheme = '') {
@@ -521,8 +456,6 @@ function getChatHTML() {
  */
 
 function run(_) {
-  checkForUpdate();
-
   const chats = [...new Set(getMessages().map((message) => message.chat_id))]
     .map((chatId) => {
       const msg = getMessages().find(({ chat_id }) => chat_id === chatId);
