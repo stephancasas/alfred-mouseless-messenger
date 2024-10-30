@@ -451,6 +451,25 @@ function getChatHTML() {
 
 /**
  * -----------------------------------------------------------------------------
+ * Base64 encoder
+ *   - The reason of doing base64 encoding/decoding is when a JSON string is being
+ *     passed among different workflows, it go through Mac's SHELL, JavaScript engine
+ *     and character encodings are handled differently, which casues non-ascii
+ *     characters to be displayed incorrectly. By doing another layer of base64
+ *     encoding/decoding, it ensures the character encoding does not get mangled.
+ * -----------------------------------------------------------------------------
+ */
+function base64Encode(string) {
+  // Convert JavaScript string to NSData object
+  const data = $.NSString.alloc.initWithUTF8String(string).dataUsingEncoding($.NSUTF8StringEncoding);
+  // Encode the NSData object to base64 string
+  const base64String = data.base64EncodedStringWithOptions(0);
+  // Convert the NSString to JavaScript string
+  return ObjC.unwrap(base64String);
+}
+
+/**
+ * -----------------------------------------------------------------------------
  * Workflow Run Handler (Main Logic)
  * -----------------------------------------------------------------------------
  */
@@ -509,8 +528,8 @@ function run(_) {
 
       sedCmd.push(`${cmd} &`);
 
-      const dto = (activity) =>
-        JSON.stringify({
+      const dto = (activity) => {
+        const jsonString = JSON.stringify({
           chat_guid,
           chat_id,
           chat_title,
@@ -522,6 +541,8 @@ function run(_) {
           preview_path,
           activity,
         });
+        return base64Encode(jsonString);
+      };
 
       return {
         title: chat_title.replace(/^(.*?)\swith\s/i, ''),

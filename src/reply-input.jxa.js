@@ -12,6 +12,15 @@ function $path(...segments) {
   return segments.join('/').replace(/\s/g, '\\ ');
 }
 
+function base64Decode(encodedString) {
+  // Create an NSData object from the base64 encoded string
+  const decodedData = $.NSData.alloc.initWithBase64EncodedStringOptions(encodedString, 0);
+  // Convert the NSData object to an NSString object
+  const decodedString = $.NSString.alloc.initWithDataEncoding(decodedData, $.NSUTF8StringEncoding);
+  // Convert the NSString to JavaScript string and return it
+  return ObjC.unwrap(decodedString);
+}
+
 const INSTALL_DIR = $path(
   App.systemAttribute('alfred_preferences'),
   'workflows',
@@ -20,7 +29,8 @@ const INSTALL_DIR = $path(
 
 function run(argv) {
   const dto = App.systemAttribute('alfred_mm_dto');
-  const { chat_title } = JSON.parse(dto);
+  const decoded_dto = base64Decode(dto);
+  const { chat_title } = JSON.parse(decoded_dto);
 
   return JSON.stringify({
     items: [
